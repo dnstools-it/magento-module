@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<modules>
+		<DnsToolsIt_PerfTestManager>
+			<version>0.1.4</version>
+		</DnsToolsIt_PerfTestManager>
+	</modules>
+	<global>
+		
+		<blocks>
+            <perftestmanager>
+                <class>DnsToolsIt_PerfTestManager_Block</class>
+            </perftestmanager>
+        </blocks>
+        <helpers>
+            <perftestmanager>
+                <class>DnsToolsIt_PerfTestManager_Helper</class>
+            </perftestmanager>
+        </helpers>
+        
+        <models>
+			<perftestmanager>
+                <class>DnsToolsIt_PerfTestManager_Model</class>
+                <resourceModel>perftestmanager_mysql4</resourceModel>
+            </perftestmanager>
+            <perftestmanager_mysql4>
+                <class>DnsToolsIt_PerfTestManager_Model_Mysql4</class>
+                <entities>
+                    <perftestmanager>
+                        <table>perftestmanager</table>
+                    </perftestmanager>
+                </entities>
+            </perftestmanager_mysql4>
+	    </models>
+		 <resources>
+            <perftestmanager_setup>
+                <setup>
+                    <module>DnsToolsIt_PerfTestManager</module>
+		    		<class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+	    	</perftestmanager_setup>	
+		</resources>
+    </global>
+	
+ <admin>
+	 <routers>
+	   <adminhtml>
+	     <args>
+	       <modules>
+	         <perftestmanager before="Mage_Adminhtml">DnsToolsIt_PerfTestManager_Adminhtml</perftestmanager>
+	       </modules>
+	     </args>
+	   </adminhtml>
+	 </routers>
+</admin> 
+
+<adminhtml>
+        <layout>
+            <updates>
+                <perftestmanager>
+                    <file>perftestmanager.xml</file>
+                </perftestmanager>
+            </updates>
+        </layout>
+        
+        <translate>
+            <modules>
+                <DnsToolsIt_PerfTestManager>
+                     <files>
+                          <default>DnsToolsIt_PerfTestManager.csv</default>
+                     </files>
+                </DnsToolsIt_PerfTestManager>
+            </modules>
+        </translate>
+</adminhtml>
+
+</config>
+
+
+
+
+  
+

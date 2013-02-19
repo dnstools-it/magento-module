@@ -1,0 +1,9 @@
+<config>
+    <modules>
+        <DnsToolsIt_PerfTestManager>
+            <active>true</active>
+            <codePool>community</codePool>
+           
+        </DnsToolsIt_PerfTestManager>
+    </modules>
+</config>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+    <name>perftestmanager</name>
+    <version>0.1.4</version>
+    <stability>devel</stability>
+    <license>GPL</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Performance Test Datapool Manager&#xD;
+&#xD;
+Utilities for generate and export datapool ,to feed my jmeter scenario,eg: login performance test </summary>
+    <description>Utilities for generate and export datapool for performance test &#xD;
+&#xD;
+Feature:&#xD;
+Generate Datapool&#xD;
+Delete Datapool&#xD;
+Export Datapool as csv&#xD;
+&#xD;
+NB: for now only customer are implemented</description>
+    <notes>cleaned package</notes>
+    <authors><author><name>vagabond2k</name><user>vagabond2k</user><email>stefano.vital@gmail.com</email></author></authors>
+    <date>2013-02-19</date>
+    <time>16:40:25</time>
+    <contents><target name="magecommunity"><dir name="DnsToolsIt"><dir name="PerfTestManager"><dir><dir name="Block"><dir name="Adminhtml"><dir name="Custom"><dir name="Edit"><file name="Form.php" hash="7e764d0bc7e61ef8dd6f9644016d52d2"/></dir><file name="Edit.php" hash="16172b28d43b27b9106d9857f8c7d2c3"/><file name="Grid.php" hash="f9e9fbbfa4c94092ad547e5fceb0573c"/></dir><file name="Custom.php" hash="5bc4b14cac482f44c3a77f50d766551e"/></dir></dir><dir name="Helper"><file name="Data.php" hash="9466b4ebf1265caaf7dbc62cb7d2c7d6"/></dir><dir name="Model"><dir name="Mysql4"><dir name="Perftestmanager"><file name="Collection.php" hash="e48ca81a6ce10d8f2d206a35a45a92d4"/></dir><file name="Perftestmanager.php" hash="1b77845deb329a0dfcc075d422eedaee"/></dir><file name="Observer.php" hash="8a6a82fb36851f87d49598d6af4120ce"/><file name="Perftestmanager.php" hash="b03ede0d722c74c7b399196459c30370"/><dir name="Resource"><file name="Setup.php" hash="9e81c62f80d6a9e90324e8bfee524113"/></dir></dir><dir name="controllers"><dir name="Adminhtml"><file name="CustomController.php" hash="b01d7fac360e842dbea739fea5dc9f9e"/></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="20515f683307cd7ed55b8fa4a6bd019b"/><file name="config.xml" hash="9aa68772c4b017307faf79a888517cd0"/></dir><dir name="sql"><dir name="perftestmanager_setup"><file name="mysql4-install-0.1.0.php" hash="c9969a2c75a7a639f8a5a904ebbfde65"/><file name=".mysql4-install-0.1.0.php.swp" hash="31efc635ecaac862fefaa815c64fefdd"/></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="DnsToolsIt_PerfTestManager.xml" hash="e8e0f4fc97aaef15b573452e366b1a2e"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>5.5.0</max></php></required></dependencies>
+</package>
