@@ -29,7 +29,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
                 $this->_redirect('*/*/');
             }
         }
-        Mage::register('custom_data', $model);
+        Mage::register('perftestmanager_data', $model);
  
         $this->loadLayout();
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
