@@ -48,11 +48,14 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Edit_Form extends Mage_A
              'note'     => Mage::helper('perftestmanager')->__('Short Description'),
         ));
 		
-		$fieldset->addField('type', 'text', array(
+		$fieldset->addField('type', 'select', array(
              'label'     => Mage::helper('perftestmanager')->__('Type'),
              'class'     => 'required-entry',
              'required'  => true,
              'name'      => 'type',
+             'values'    => array('users'=>'users',
+             				'products'=>array('value'=>'products','disabled'=>'yes','label'=>'products'),
+             				'orders'=>array('value'=>'orders','disabled'=>'yes','label'=>'orders')),
              'note'     => Mage::helper('perftestmanager')->__('Performance Test Type'),
         ));
 		

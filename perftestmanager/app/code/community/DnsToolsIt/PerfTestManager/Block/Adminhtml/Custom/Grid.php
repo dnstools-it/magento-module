@@ -50,7 +50,30 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Grid extends Mage_Adminh
             'align'     => 'left',
             'index'     => 'usernumber',
         ));
- 
+		
+		  
+		$this->addColumn('view',
+            array(
+                'header'    => Mage::helper('catalog')->__('View Stats'),
+                'width'     => '40px',
+                'type'      => 'action',
+                'getter'     => 'getId',
+                'actions'   => array(
+                    array(
+                        'caption' => Mage::helper('catalog')->__('View Stats'),
+                        'url'     => array(
+                            'base'=>'/custom/statsview',
+                            'params'=>array('store'=>$this->getRequest()->getParam('store'))
+                        ),
+                        'field'   => 'id'
+                    )
+                ),
+                'filter'    => false,
+                'sortable'  => false,
+                'index'     => 'stores',
+        ));
+		
+ 		
         return parent::_prepareColumns();
     }
  
@@ -63,6 +86,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Grid extends Mage_Adminh
 	{
 		$this->setMassactionIdField('pt_id');
 		$this->getMassactionBlock()->setFormFieldName('pt_id');
+		
 		$this->getMassactionBlock()->addItem('delete', array(
 		'label'=> Mage::helper('perftestmanager')->__('Delete Datapool'),
 		'url'  => $this->getUrl('*/*/massDeleteDatapool', array('' => '')),        // public function massDeleteAction() in Mage_Adminhtml_Tax_RateController

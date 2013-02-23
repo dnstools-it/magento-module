@@ -16,7 +16,9 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
     {
         $id = $this->getRequest()->getParam('id', null);
         $model = Mage::getModel('perftestmanager/perftestmanager');
+		
         if ($id) {
+        	
             $model->load((int) $id);
 			if ($model->getId()) {
                 $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
@@ -120,7 +122,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 					}
 				Mage::getSingleton('adminhtml/session')->addSuccess(
 				Mage::helper('perftestmanager')->__(
-				'Total of %d record(s) were deleted.', count($ptIds)
+				'Total of %d record(s) were deleted.', count($users)
 			)
 			);
 			} catch (Exception $e) {
@@ -149,7 +151,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 					}
 				Mage::getSingleton('adminhtml/session')->addSuccess(
 				Mage::helper('perftestmanager')->__(
-				'Total of %d record(s) were deleted.', count($ptIds)
+				'Total of %d record(s) were exported.', count($users)
 			)
 			);
 			} catch (Exception $e) {
@@ -158,6 +160,8 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 		}
 		 $this->_prepareDownloadResponse('export.csv', $content, 'text/csv');
 	}
+
+
 	
 	
 	public function massGenerateDatapoolAction(){
@@ -172,7 +176,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 				}
 				Mage::getSingleton('adminhtml/session')->addSuccess(
 				Mage::helper('perftestmanager')->__(
-				'Total of %d record(s) were deleted.', count($ptIds)
+				'Total of %d record(s) were generated.',$info->usernumber
 			)
 			);
 			} catch (Exception $e) {
@@ -181,6 +185,20 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 		}
 		$this->_redirect('*/*/index');
 	}
+	
+	public  function  statsviewAction()
+	{
+		$id = $this->getRequest()->getParam('id');  
+		$infodp = $this->_getInfoDatapool($id);
+		$users = $this->_getUsersbyPtName($infodp->name);
+		$stats = $this->_getUsersStat($users);
+		$this->loadLayout();
+		$block=$this->getLayout()->createBlock("perftestmanager/viewstats")->setTemplate("perftestmanager/stats.phtml");		$block->setData('stats',$stats);
+		$block->setData('infodp',$infodp);
+		$this->getLayout()->getBlock('content')->append($block);
+        $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
+        $this->renderLayout();
+	}
 
 	private function _getInfoDatapool($id){
 		$model =  Mage::getModel('perftestmanager/perftestmanager');
@@ -188,11 +206,57 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 		return $info;
 	}
 	
+	private function _getUsersStat($users){
+		$stats=array();	
+		
+		$stats['hasloggedandAction']=0;
+		$stats['haslogged']=0;
+		$stats['avgspeedlogin']=0;
+		$stats['hasloggedcount']=0;
+		
+		foreach ($users as $user){
+			
+			$created=new DateTime($user->created_at);
+			$updated=new DateTime($user->updated_at);
+			//check login and action
+			if ($updated!=$created){
+				$stats['hasloggedandAction']+=1;
+			}
+			
+			//check firstlogin   (observer+tabella dedicata)
+			//Mage::getModel('log/customer')
+			$logtime =  Mage::getModel('log/customer')->loadByCustomer($user->entity_id);
+			if ($logtime->login_at!=NULL)
+			{
+				$stats['haslogged']=array("$user->entity_id"=>"1");
+			}
+
+			
+			
+		}
+		if (count($users)>0){
+			foreach ($stats['haslogged'] as $userid=>$value)
+				{
+					$stats['hasloggedcount']+=$value;
+				}
+			//check media velocita di login (observer + tabella dedicata)
+			$avgspeed = Mage::getModel('statsinfo/statsinfo')->getCollection()
+																 ->addFieldToSelect('*')
+																 ->load();
+				
+			foreach ($avgspeed->getData() as $speedlogin){
+					$stats['avgspeedlogin'] = $speedlogin['login_time'] /count ($avgspeed->getData());
+				}
+		}
+		return $stats;
+	}
 	
 	private function _getUsersbyPtName($name){
+		
 		$users =  Mage::getModel('customer/customer')->getCollection()
 													 ->addAttributeToFilter('email',array('like'=>$name.'%'))
 													 ->load();
+												 
 		return $users;
 	}
 	

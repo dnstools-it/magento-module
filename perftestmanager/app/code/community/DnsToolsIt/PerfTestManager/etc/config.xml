@@ -3,7 +3,7 @@
 <config>
 	<modules>
 		<DnsToolsIt_PerfTestManager>
-			<version>0.1.4</version>
+			<version>0.1.5</version>
 		</DnsToolsIt_PerfTestManager>
 	</modules>
 	<global>
@@ -33,6 +33,20 @@
                 </entities>
             </perftestmanager_mysql4>
 	    </models>
+	    <models>
+			<statsinfo>
+                <class>DnsToolsIt_PerfTestManager_Model</class>
+                <resourceModel>statsinfo_mysql4</resourceModel>
+            </statsinfo>
+            <statsinfo_mysql4>
+                <class>DnsToolsIt_PerfTestManager_Model_Mysql4</class>
+                <entities>
+                    <statsinfo>
+                        <table>statsinfo</table>
+                    </statsinfo>
+                </entities>
+            </statsinfo_mysql4>
+	    </models>
 		 <resources>
             <perftestmanager_setup>
                 <setup>
@@ -40,6 +54,12 @@
 		    		<class>Mage_Customer_Model_Entity_Setup</class>
                 </setup>
 	    	</perftestmanager_setup>	
+	    	<statsinfo_setup>
+                <setup>
+                    <module>DnsToolsIt_PerfTestManager</module>
+		    		<class>Mage_Customer_Model_Entity_Setup</class>
+                </setup>
+	    	</statsinfo_setup>	
 		</resources>
     </global>
 	
@@ -75,6 +95,32 @@
         </translate>
 </adminhtml>
 
+
+<frontend>
+    <events>
+	 <customer_login>
+            <observers>
+                <DnsToolsIt_perftestmanager>
+                    <type>model</type>
+                    <class>DnsToolsIt_PerfTestManager_Model_Observer</class>
+                    <method>saveLoginTime</method>
+                </DnsToolsIt_perftestmanager>
+            </observers>
+     </customer_login>
+     
+     <customer_session_init>
+     	  <observers>
+                <DnsToolsIt_perftestmanager>
+                    <type>model</type>
+                    <class>DnsToolsIt_PerfTestManager_Model_Observer</class>
+                    <method>saveSessionInit</method>
+                </DnsToolsIt_perftestmanager>
+            </observers>
+     </customer_session_init>
+     
+    </events>
+  </frontend>
+	
 </config>
 
 

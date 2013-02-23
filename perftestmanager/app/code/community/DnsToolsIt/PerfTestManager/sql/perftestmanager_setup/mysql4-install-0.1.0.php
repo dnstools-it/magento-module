@@ -14,6 +14,16 @@
 | store_id    | int(11)          | NO   |     | NULL    |                |
 | group_id    | int(11)          | NO   |     | NULL    |                |
 +-------------+------------------+------+-----+---------+----------------+
+ * 
++-------------+------------------+------+-----+---------+----------------+
+| Field       | Type             | Null | Key | Default | Extra          |
++-------------+------------------+------+-----+---------+----------------+
+| id          | int(11) unsigned | NO   | PRI | NULL    | auto_increment |
+| email       | varchar(255)     | NO   | UNI |         |                |
+| login_time  | varchar(255)     | NO   |     |         |                |
+| logout_time | varchar(255)     | NO   |     |         |                |
++-------------+------------------+------+-----+---------+----------------+
+ * 
  */
 
 
@@ -34,6 +44,14 @@ $installer->run("-- DROP TABLE IF EXISTS {$this->getTable('perftestmanager')};
 			  `group_id` INT(11) NOT NULL default 0,
 			  PRIMARY KEY (`pt_id`),
 			  UNIQUE INDEX name(`name`)
+			) ENGINE=InnoDB;");
+
+$installer->run("CREATE TABLE IF NOT EXISTS {$this->getTable('statsinfo')}( `id` int(11) unsigned NOT NULL auto_increment,
+			  `email` VARCHAR(255) NOT NULL default '',
+			  `login_time` VARCHAR(255) NOT NULL default '',
+			  `logout_time` VARCHAR(255) NOT NULL default '',
+			  PRIMARY KEY (`id`),
+			  UNIQUE KEY email(email)
 			) ENGINE=InnoDB;");
 
 $installer->endSetup();

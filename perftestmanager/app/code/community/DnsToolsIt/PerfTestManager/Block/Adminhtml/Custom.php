@@ -8,7 +8,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom extends Mage_Adminhtml_B
         parent::__construct();
         $this->_controller = 'adminhtml_custom';
         $this->_blockGroup = 'perftestmanager';
-        $this->_headerText = Mage::helper('perftestmanager')->__('Performance Test');
+        $this->_headerText = Mage::helper('perftestmanager')->__('Performance Test Manager Datapool');
     }
 	
 	
