@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+ 
+<layout>
+    <adminhtml_custom_index>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_custom" name="custom" />
+        </reference>
+    </adminhtml_custom_index>
+ 
+     <adminhtml_custom_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_custom_edit" name="custom_edit" />
+        </reference>
+    </adminhtml_custom_edit>
+ 
+</layout>
