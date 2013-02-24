@@ -1,5 +1,5 @@
 <?php
-class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
@@ -28,7 +28,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Edit_Form extends Mage_A
  
         $this->setForm($form);
  
-        $fieldset = $form->addFieldset('custom_form', array(
+        $fieldset = $form->addFieldset('datapool_form', array(
              'legend' =>Mage::helper('perftestmanager')->__('Performance Test Information')
         ));
  

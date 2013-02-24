@@ -1,5 +1,5 @@
 <?php
-class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
 {
     public function __construct()
     {
@@ -7,7 +7,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Edit extends Mage_Adminh
  
         $this->_objectId = 'id';
         $this->_blockGroup = 'perftestmanager';
-        $this->_controller = 'adminhtml_custom';
+        $this->_controller = 'adminhtml_datapool';
         $this->_mode = 'edit';
  
         $this->_addButton('save_and_continue', array(

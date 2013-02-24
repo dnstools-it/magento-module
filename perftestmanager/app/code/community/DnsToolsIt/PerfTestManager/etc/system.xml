@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <tabs>
+        <perftestmanager translate="label" module="perftestmanager">
+            <label>PerfTestManger</label>
+            <sort_order>100</sort_order>
+        </perftestmanager>
+    </tabs>
+    <sections>
+        <perftestmanager translate="label" module="perftestmanager">
+            <label>Options</label>
+            <tab>perftestmanager</tab>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <perftestmanager_group translate="label" module="perftestmanager">
+                    <label>PerfTestManager Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <perftestmanager_input translate="label">
+                            <label>Performance Test in Running ?: </label>
+                            <comment>Set Performance Test in Runinng</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perftestmanager_input>
+                        <perftestmanager_select translate="label">
+                            <label>Observer Login Active?: </label>
+                            <comment>with this set to no magento is in vanilla mode</comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </perftestmanager_select>
+                    </fields>
+                </perftestmanager_group>
+            </groups>
+        </perftestmanager>
+    </sections>
+</config>

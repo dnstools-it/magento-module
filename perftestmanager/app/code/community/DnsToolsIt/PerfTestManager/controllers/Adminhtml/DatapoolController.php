@@ -1,9 +1,9 @@
 <?php
-class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminhtml_Controller_Action{
+class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Adminhtml_Controller_Action{
 						
 		
 	public function indexAction(){
-			$this->loadLayout()->_title($this->__('Index Action'));;
+			$this->loadLayout()->_title($this->__('Index Action'));
 			$this->renderLayout();
 	}
 		
@@ -210,7 +210,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 		$stats=array();	
 		
 		$stats['hasloggedandAction']=0;
-		$stats['haslogged']=0;
+		$stats['haslogged']=array();
 		$stats['avgspeedlogin']=0;
 		$stats['hasloggedcount']=0;
 		
@@ -223,17 +223,21 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 				$stats['hasloggedandAction']+=1;
 			}
 			
-			//check firstlogin   (observer+tabella dedicata)
+			//check firstlogin   
 			//Mage::getModel('log/customer')
 			$logtime =  Mage::getModel('log/customer')->loadByCustomer($user->entity_id);
-			if ($logtime->login_at!=NULL)
+		
+			//Zend_Debug::dump($logtime->getData());
+			if (array_key_exists('login_at',$logtime->getData()))
 			{
-				$stats['haslogged']=array("$user->entity_id"=>"1");
+				$stats['haslogged'][$user->entity_id]=1;
+				
 			}
 
 			
 			
 		}
+	
 		if (count($users)>0){
 			foreach ($stats['haslogged'] as $userid=>$value)
 				{
@@ -243,7 +247,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_CustomController extends Mage_Adminht
 			$avgspeed = Mage::getModel('statsinfo/statsinfo')->getCollection()
 																 ->addFieldToSelect('*')
 																 ->load();
-				
+		
 			foreach ($avgspeed->getData() as $speedlogin){
 					$stats['avgspeedlogin'] = $speedlogin['login_time'] /count ($avgspeed->getData());
 				}

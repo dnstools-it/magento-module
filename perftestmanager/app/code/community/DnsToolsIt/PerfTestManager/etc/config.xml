@@ -93,6 +93,29 @@
                 </DnsToolsIt_PerfTestManager>
             </modules>
         </translate>
+        
+         <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <perftestmanager>
+                                        <title>PerfTestManager - All</title>
+                                    </perftestmanager>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    	</acl>
 </adminhtml>
 
 

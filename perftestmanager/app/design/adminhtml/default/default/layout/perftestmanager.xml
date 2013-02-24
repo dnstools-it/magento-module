@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
  
 <layout>
-    <adminhtml_custom_index>
+    <adminhtml_datapool_index>
         <reference name="content">
-            <block type="perftestmanager/adminhtml_custom" name="custom" />
+            <block type="perftestmanager/adminhtml_datapool" name="datapool" />
         </reference>
-    </adminhtml_custom_index>
+    </adminhtml_datapool_index>
  
-     <adminhtml_custom_edit>
+     <adminhtml_datapool_edit>
         <reference name="content">
-            <block type="perftestmanager/adminhtml_custom_edit" name="custom_edit" />
+            <block type="perftestmanager/adminhtml_datapool_edit" name="datapool_edit" />
         </reference>
-    </adminhtml_custom_edit>
+    </adminhtml_datapool_edit>
  
 </layout>

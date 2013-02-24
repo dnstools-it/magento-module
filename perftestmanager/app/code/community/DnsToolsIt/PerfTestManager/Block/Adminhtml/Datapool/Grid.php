@@ -1,11 +1,11 @@
 <?php
  
-class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setId('custom_grid');
+        $this->setId('datapool_grid');
         $this->setDefaultSort('pt_id');
         $this->setDefaultDir('desc');
         $this->setSaveParametersInSession(true);
@@ -62,7 +62,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Custom_Grid extends Mage_Adminh
                     array(
                         'caption' => Mage::helper('catalog')->__('View Stats'),
                         'url'     => array(
-                            'base'=>'/custom/statsview',
+                            'base'=>'/datapool/statsview',
                             'params'=>array('store'=>$this->getRequest()->getParam('store'))
                         ),
                         'field'   => 'id'
