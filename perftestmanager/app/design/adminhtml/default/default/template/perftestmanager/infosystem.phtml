@@ -1,0 +1,59 @@
+<h3>infosystem</h3>
+
+<div style="float:left;background-color:black;color:green;padding:2px;">
+<h4>Cache Directory Size </h4>
+<?php echo $this->getInfoCache(); ?>
+<br/>
+<h4>Session Directory Size </h4>
+
+<?php echo $this->getSessionInfo(); ?>
+<br/>
+<h4>Network Info </h4>
+<?php echo $this->getNodeIp(); ?>
+<br/>
+<h4>Uptime Info </h4>
+<?php echo $this->getUptime(); ?>
+<br/>
+</div>
+
+<div style="float:left;margin-left:5px;background-color:black;color:green;padding:2px;">
+<h4>Apache Process Size </h4>
+<?php echo $this->getRamUsageApache(); ?>
+<br/>
+<h4>FastCgi Process Size </h4>
+
+<?php echo $this->getRamUsageFastCgi(); ?>
+<br/>
+<h4>Nginx Process Size </h4>
+<?php echo "no ngnix process" ?>
+<br/>
+
+<h4>Php Process Size </h4>
+<?php echo $this->getRamUsagePhp(); ?>
+<br/>
+
+<h4>FileSystem Info </h4>
+<?php echo $this->getInfoFs(); ?>
+<br/>
+
+</div>
+
+<div style="float:left;margin-left:5px;background-color:black;color:green;padding:2px;">
+<h4>Memcache Stats </h4>
+<?php echo $this->getMemCacheStats(); ?>
+<br/>
+
+<h4>Memory Usage</h4>
+<?php echo $this->getTotalRamUsage(); ?>
+<br/>
+
+<h4>Redis Stats </h4>
+
+<?php echo $this->getRedisStats(); ?>
+<br/>
+
+<h4>Vmstat Info </h4>
+<?php echo $this->getVmStat(); ?>
+<br/>
+</div>
+
