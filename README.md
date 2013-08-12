@@ -15,3 +15,6 @@ Export Datapool as csv<br/>
 Stats by Scenario<br/>
 Configuration Section<br/>
 
+example usage  at:
+http://mymagentolog.dnstools.it/doku.php?id=perftestmanager
+
