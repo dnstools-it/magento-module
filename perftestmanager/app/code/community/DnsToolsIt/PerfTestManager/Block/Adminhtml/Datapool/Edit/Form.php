@@ -27,7 +27,30 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit_Form extends Mage
         $form->setUseContainer(true);
  
         $this->setForm($form);
- 
+
+$datapool_selector =<<<EOT
+		var selected = Ext.get(this.id).getValue();
+		var form     = Ext.get('edit_form');
+		
+		if (selected == 'products')
+		{
+			Ext.get('emaildomain').remove()
+			Ext.get('password').remove()
+			
+		}
+		if (selected == 'users')
+		{
+			Ext.get('emaildomain').show()
+			Ext.get('password').show()
+		}
+		
+		if (selected == 'orders')
+		{
+			Ext.get('fieldname').hide()
+			Ext.get('fieldname').show()
+		}
+EOT;
+
         $fieldset = $form->addFieldset('datapool_form', array(
              'legend' =>Mage::helper('perftestmanager')->__('Performance Test Information')
         ));
@@ -47,23 +70,16 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit_Form extends Mage
              'name'      => 'desc',
              'note'     => Mage::helper('perftestmanager')->__('Short Description'),
         ));
-		
-		$fieldset->addField('type', 'select', array(
-             'label'     => Mage::helper('perftestmanager')->__('Type'),
-             'class'     => 'required-entry',
-             'required'  => true,
-             'name'      => 'type',
-             'values'    => array('users'=>'users',
-             				'products'=>array('value'=>'products','disabled'=>'yes','label'=>'products'),
-             				'orders'=>array('value'=>'orders','disabled'=>'yes','label'=>'orders')),
-             'note'     => Mage::helper('perftestmanager')->__('Performance Test Type'),
+	
+		$fieldset->addField('type', 'hidden', array(
+              'default_html'   => '<input id="type" name="type" value="users" type="hidden">'
         ));
 		
-		$fieldset->addField('usernumber', 'text', array(
+		$fieldset->addField('qty', 'text', array(
              'label'     => Mage::helper('perftestmanager')->__('User Number'),
              'class'     => 'required-entry',
              'required'  => true,
-             'name'      => 'usernumber',
+             'name'      => 'qty',
              'note'     => Mage::helper('perftestmanager')->__('Number of customer that populate Database.'),
         ));
 		
@@ -92,7 +108,7 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit_Form extends Mage
                  'note'     => Mage::helper('perftestmanager')->__('Web Site Id used for datapool'),
             )); 
 		
-	 		$fieldset->addField('store_id', 'select', array(
+	 	$fieldset->addField('store_id', 'select', array(
                 'name'      => 'store_id',
                 'label'     => Mage::helper('perftestmanager')->__('Store'),
                 'title'     => Mage::helper('perftestmanager')->__('Store'),

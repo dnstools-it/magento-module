@@ -7,7 +7,7 @@ class DnsToolsIt_PerfTestManager_Block_ViewStats extends Mage_Adminhtml_Block_Wi
  
         $this->_objectId = 'id';
         $this->_blockGroup = 'perftestmanager';
-        $this->_controller = 'adminhtml_custom';
+        $this->_controller = 'adminhtml_datapool';
         $this->_mode = 'edit';
  
         $this->_addButton('save_and_continue', array(

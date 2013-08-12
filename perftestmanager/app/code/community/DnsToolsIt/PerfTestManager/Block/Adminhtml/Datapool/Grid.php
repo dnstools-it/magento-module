@@ -8,18 +8,91 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Grid extends Mage_Admi
         $this->setId('datapool_grid');
         $this->setDefaultSort('pt_id');
         $this->setDefaultDir('desc');
+        //$this->setUseAjax(true);
         $this->setSaveParametersInSession(true);
+       /* if (Mage::registry('preparedFilter')) {
+            $this->setDefaultFilter( Mage::registry('preparedFilter') );
+        }*/
     }
  
+
+
+
+
+
+     /**
+     * 
+     *
+     */
+   /* protected function _addColumnFilterToCollection($column)
+    {
+        $filterArr = Mage::registry('preparedFilter');
+
+        if ( $column->getId() === 'type' && $column->getFilter()->getValue() && strpos($column->getFilter()->getValue(), ',')) {
+            $_inNin = explode(',', $column->getFilter()->getValue());
+            $inNin = array();
+            foreach ($_inNin as $k => $v) {
+                if (is_string($v) && strlen(trim($v))) {
+                    $inNin[] = trim($v);
+                }
+            }
+            if (count($inNin)>1 && in_array($inNin[0], array('in', 'nin'))) {
+                $in = $inNin[0];
+                $values = array_slice($inNin, 1);
+                $this->getCollection()->addFieldToFilter($column->getId(), array($in => $values));
+            } else {
+                parent::_addColumnFilterToCollection($column);
+            }
+        } elseif (is_array($filterArr) && array_key_exists($column->getId(), $filterArr) && isset($filterArr[$column->getId()])) {
+            $this->getCollection()->addFieldToFilter($column->getId(), $filterArr[$column->getId()]);
+        } else {
+            parent::_addColumnFilterToCollection($column);
+        }
+        //Zend_Debug::dump((string)$this->getCollection()->getSelect(), 'Prepared filter:');
+        return $this;
+    }*/
+
+
+    protected function _getCollectionClass()
+    {
+        return 'perftestmanager/perftestmanager';
+    }
+
+
+
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('perftestmanager/perftestmanager')->getCollection();
+
+        $controllername = Mage::app()->getRequest()->getControllerName();
+        
+        if ($controllername=='datapool'){
+                    $type='users';
+        }else{
+                    $type=str_replace('datapool','',$controllername);
+        }
+
+        $collection = Mage::getModel('perftestmanager/perftestmanager')->getCollection()
+                                                                        ->addFieldToSelect("*")
+                                                                        ->addFieldToFilter('type',$type);
+        
+
+        //$collection = Mage::getModel('perftestmanager/perftestmanager')->getCollection();
         $this->setCollection($collection);
+        
         return parent::_prepareCollection();
     }
  
     protected function _prepareColumns()
     {
+
+        
+
+
+       /* $coll = Mage::getModel('perftestmanager/perftestmanager')->getCollection()
+                                                                 ->addFieldToSelect("type","id")
+                                                                 ->addFieldToSelect("type","name");
+        $coll->getSelect()->group('type');
+        */
         $this->addColumn('pt_id', array(
             'header'    => Mage::helper('perftestmanager')->__('ID'),
             'align'     =>'right',
@@ -38,19 +111,22 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Grid extends Mage_Admi
             'align'     =>'left',
             'index'     => 'desc',
         ));
- 
+        
         $this->addColumn('type', array(
             'header'    => Mage::helper('perftestmanager')->__('Type'),
-            'align'     => 'left',
             'index'     => 'type',
+            
+                                                                            
         ));
 		
-		$this->addColumn('usernumber', array(
-            'header'    => Mage::helper('perftestmanager')->__('UserNumber'),
+		$this->addColumn('qty', array(
+            'header'    => Mage::helper('perftestmanager')->__('Qty'),
             'align'     => 'left',
-            'index'     => 'usernumber',
+            'index'     => 'qty',
         ));
 		
+
+
 		  
 		$this->addColumn('view',
             array(
@@ -105,4 +181,12 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Grid extends Mage_Admi
 		
 		return $this;
 	}
+
+    
+    //public function getGridUrl()
+    //{
+    //    return $this->_getData('grid_url') ? $this->_getData('grid_url') : $this->getUrl('*/*/customergrid', array('_current'=>true));
+    //}
+
+    
 }

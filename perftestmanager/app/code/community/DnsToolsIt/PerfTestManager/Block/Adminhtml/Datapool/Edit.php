@@ -15,6 +15,8 @@ class DnsToolsIt_PerfTestManager_Block_Adminhtml_Datapool_Edit extends Mage_Admi
                   'onclick' => 'saveAndContinueEdit()',
                   'class' => 'save',
         ), -100);
+
+        
         $this->_updateButton('save', 'label', Mage::helper('perftestmanager')->__('Save Performance Test'));
  
         $this->_formScripts[] = "
