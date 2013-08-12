@@ -3,7 +3,7 @@
 <config>
 	<modules>
 		<DnsToolsIt_PerfTestManager>
-			<version>0.1.5</version>
+			<version>0.1.7</version>
 		</DnsToolsIt_PerfTestManager>
 	</modules>
 	<global>
@@ -47,6 +47,48 @@
                 </entities>
             </statsinfo_mysql4>
 	    </models>
+        <models>
+            <users>
+                <class>DnsToolsIt_PerfTestManager_Model_Datpool</class>
+                <resourceModel>datapoolusers_mysql4</resourceModel>
+            </users>
+            <datapoolusers_mysql4>
+                <class>DnsToolsIt_PerfTestManager_Model_Mysql4</class>
+                <entities>
+                    <datapoolusers>
+                        <table>pt_users</table>
+                    </datapoolusers>
+                </entities>
+            </datapoolusers_mysql4>
+        </models>
+         <models>
+            <products>
+                <class>DnsToolsIt_PerfTestManager_Model_Datpool</class>
+                <resourceModel>datapoolproducts_mysql4</resourceModel>
+            </products>
+            <datapoolproducts_mysql4>
+                <class>DnsToolsIt_PerfTestManager_Model_Mysql4</class>
+                <entities>
+                    <datapoolproducts>
+                        <table>pt_products</table>
+                    </datapoolproducts>
+                </entities>
+            </datapoolproducts_mysql4>
+        </models>
+        <models>
+            <orders>
+                <class>DnsToolsIt_PerfTestManager_Model_Datpool</class>
+                <resourceModel>datapoolorders_mysql4</resourceModel>
+            </orders>
+            <datapoolorders_mysql4>
+                <class>DnsToolsIt_PerfTestManager_Model_Mysql4</class>
+                <entities>
+                    <datapoolorders>
+                        <table>pt_orders</table>
+                    </datapoolorders>
+                </entities>
+            </datapoolorders_mysql4>
+        </models>
 		 <resources>
             <perftestmanager_setup>
                 <setup>
@@ -72,6 +114,7 @@
 	       </modules>
 	     </args>
 	   </adminhtml>
+       
 	 </routers>
 </admin> 
 

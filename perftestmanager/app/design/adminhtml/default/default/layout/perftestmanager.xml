@@ -2,15 +2,125 @@
  
 <layout>
     <adminhtml_datapool_index>
-        <reference name="content">
-            <block type="perftestmanager/adminhtml_datapool" name="datapool" />
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
         </reference>
+        <reference name="content">
+             <block type="perftestmanager/adminhtml_datapool" name="datapool" />
+        </reference>
+
+        <reference name="content">
+             <block type="perftestmanager/adminhtml_infosystem" name="infosystem" output="toHtml">
+               
+             </block> 
+        </reference>
+
     </adminhtml_datapool_index>
- 
-     <adminhtml_datapool_edit>
+
+   <adminhtml_infosystem_index>
+        
+   </adminhtml_infosystem_index>
+
+
+   
+   
+    <adminhtml_datapool_edit>
         <reference name="content">
             <block type="perftestmanager/adminhtml_datapool_edit" name="datapool_edit" />
         </reference>
     </adminhtml_datapool_edit>
+     
+
+     <adminhtml_datapoolcategories_index>
+       
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapoolcategories_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+             <block type="perftestmanager/adminhtml_datapoolcategories" name="datapool" />
+        </reference>
+   </adminhtml_datapoolcategories_index>
+   
+    <adminhtml_datapoolcategories_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolcategories_edit" name="datapoolcategories_edit" />
+        </reference>
+    </adminhtml_datapoolcategories_edit>
+
+
+ 	<adminhtml_datapoolorders_index>
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolorders" name="datapoolorders" />
+        </reference>
+    </adminhtml_datapoolorders_index>
  
+    <adminhtml_datapoolorders_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolorders_edit" name="datapool_edit" />
+        </reference>
+    </adminhtml_datapoolorders_edit>
+    
+    <adminhtml_datapoolproducts_index>
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolproducts" name="datapoolproducts" />
+        </reference>
+    </adminhtml_datapoolproducts_index>
+ 
+    <adminhtml_datapoolproducts_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolproducts_edit" name="datapoolproducts_edit" />
+        </reference>
+    </adminhtml_datapoolproducts_edit>
+
+
+    <adminhtml_datapoolstore_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolstore_edit" name="datapoolstore_edit" />
+        </reference>
+    </adminhtml_datapoolstore_edit>
+    
+    <adminhtml_datapoolstore_index>
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolstore" name="datapoolstore" />
+        </reference>
+    </adminhtml_datapoolstore_index>
+ 
+    <adminhtml_datapoolstoreviews_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolstoreviews_edit" name="datapoolstoreviews_edit" />
+        </reference>
+    </adminhtml_datapoolstoreviews_edit>
+
+    <adminhtml_datapoolstoreviews_index>
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolstoreviews" name="datapoolstoreviews" />
+        </reference>
+    </adminhtml_datapoolstoreviews_index>
+ 
+     <adminhtml_datapoolwebsite_edit>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolwebsite_edit" name="datapoolwebsite_edit" />
+        </reference>
+    </adminhtml_datapoolwebsite_edit>
+
+    <adminhtml_datapoolwebsite_index>
+        <reference name="left">
+             <block type="perftestmanager/adminhtml_datapool_tabs" name="datapool_main_tabs" />
+        </reference>
+        <reference name="content">
+            <block type="perftestmanager/adminhtml_datapoolwebsite" name="datapoolwebsite" />
+        </reference>
+    </adminhtml_datapoolwebsite_index>
 </layout>

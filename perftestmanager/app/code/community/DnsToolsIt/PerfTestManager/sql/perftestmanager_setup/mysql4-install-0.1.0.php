@@ -36,15 +36,18 @@ $installer->run("-- DROP TABLE IF EXISTS {$this->getTable('perftestmanager')};
 			  `name` VARCHAR(255) NOT NULL default '',
 			  `desc` VARCHAR(255) NOT NULL default '',
 			  `type` VARCHAR(255) NOT NULL default '',
-			  `usernumber` INT(11) NOT NULL default 0,
+			  `qty` INT(11) NOT NULL default 0,
 			  `emaildomain` VARCHAR(255) NOT NULL default '',
 			  `password` VARCHAR(100) NOT NULL default '',
 			  `website_id` INT(11) NOT NULL default 0,
 			  `store_id` INT(11) NOT NULL default 0,
 			  `group_id` INT(11) NOT NULL default 0,
+			  `group_id` INT(11) NOT NULL default 0,
+			  `categories` VARCHAR(255) NULL default '',
 			  PRIMARY KEY (`pt_id`),
 			  UNIQUE INDEX name(`name`)
 			) ENGINE=InnoDB;");
+
 
 $installer->run("CREATE TABLE IF NOT EXISTS {$this->getTable('statsinfo')}( `id` int(11) unsigned NOT NULL auto_increment,
 			  `email` VARCHAR(255) NOT NULL default '',

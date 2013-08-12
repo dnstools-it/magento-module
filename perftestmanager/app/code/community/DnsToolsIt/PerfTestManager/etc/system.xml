@@ -32,6 +32,7 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </perftestmanager_input>
+                        
                         <perftestmanager_select translate="label">
                             <label>Observer Login Active?: </label>
                             <comment>with this set to no magento is in vanilla mode</comment>
@@ -42,6 +43,47 @@
                             <show_in_store>1</show_in_store>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                         </perftestmanager_select>
+                        
+                        <perftestmanager_input2 translate="label">
+                            <label>Apache process To Check Size ?: </label>
+                            <comment>Apache process To Check Size</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perftestmanager_input2>
+
+                        <perftestmanager_input3 translate="label">
+                            <label>Apache process To Check Size ?: </label>
+                            <comment>Apache process To Check Size</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perftestmanager_input3>
+
+                        <perftestmanager_input4 translate="label">
+                            <label>FileSystem to check for Data Retention ?: </label>
+                            <comment>FileSystem to check for Data Retention</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perftestmanager_input4>
+
+                        <perftestmanager_input5 translate="label">
+                            <label>Mail for Alerting ?: </label>
+                            <comment>Mail for Alerting ?</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perftestmanager_input5>
+
                     </fields>
                 </perftestmanager_group>
             </groups>

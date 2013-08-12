@@ -4,6 +4,8 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
 		
 	public function indexAction(){
 			$this->loadLayout()->_title($this->__('Index Action'));
+			/*Mage::register('preparedFilter', array(
+            ));*/
 			$this->renderLayout();
 	}
 		
@@ -11,8 +13,8 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
     {
         $this->_forward('edit');
     }
- 
-    public function editAction()
+	
+	public function editAction()
     {
         $id = $this->getRequest()->getParam('id', null);
         $model = Mage::getModel('perftestmanager/perftestmanager');
@@ -35,6 +37,8 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
  
         $this->loadLayout();
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
+		//for add tabs in a form new action
+		//$this->_addContent($this->getLayout()->createBlock('form/adminhtml_form_edit'))->_addLeft($this->getLayout()->createBlock('form/adminhtml_form_edit_tabs')); 
         $this->renderLayout();
     }
  
@@ -47,6 +51,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
             if ($id) {
                 $model->load($id);
             }
+
             $model->setData($data);
  
             Mage::getSingleton('adminhtml/session')->setFormData($data);
@@ -54,6 +59,7 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
                 if ($id) {
                     $model->setId($id);
                 }
+                $model->setType('users');
                 $model->save();
  
                 if (!$model->getId()) {
@@ -109,16 +115,18 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
 	
 	public function massDeleteDatapoolAction()
 	{
-		$ptIds = $this->getRequest()->getParam('pt_id');      // $this->getMassactionBlock()->setFormFieldName('tax_id'); from Mage_Adminhtml_Block_Tax_Rate_Grid
+		$ptIds = $this->getRequest()->getParam('pt_id');      
 		if(!is_array($ptIds)) {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('perftestmanager')->__('Please select performance test(es).'));
 		} else {
 			try {
 				$ptModel = Mage::getModel('perftestmanager/perftestmanager');
+				$datapool= Mage::getModel('perftestmanager/perftestmanager')->getInstance('users');
 					foreach ($ptIds as $ptId) {
-						$info = $this->_getInfodatapool($ptId);
-						$users = $this->_getUsersbyPtName($info->name);
-						$this->_deletePtUsers($users);
+
+						$info = $datapool->_getInfodatapool($ptId);
+						$users = $datapool->_getPtElements($info->name);
+						$datapool->_deletePt($users);
 					}
 				Mage::getSingleton('adminhtml/session')->addSuccess(
 				Mage::helper('perftestmanager')->__(
@@ -134,16 +142,17 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
 	
 	
 	public function massExportDatapoolAction(){
-		$ptIds = $this->getRequest()->getParam('pt_id');      // $this->getMassactionBlock()->setFormFieldName('tax_id'); from Mage_Adminhtml_Block_Tax_Rate_Grid
+		$ptIds = $this->getRequest()->getParam('pt_id');    
 		$content="";
 		if(!is_array($ptIds)) {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('perftestmanager')->__('Please select performance test(es).'));
 		} else {
 			try {
 				$ptModel = Mage::getModel('perftestmanager/perftestmanager');
+				$datapool= Mage::getModel('perftestmanager/perftestmanager')->getInstance('users');
 					foreach ($ptIds as $ptId) {
-						$info = $this->_getInfodatapool($ptId);
-						$users = $this->_getUsersbyPtName($info->name);
+						$info = $datapool->_getInfodatapool($ptId);
+						$users = $datapool->_getPtElements($info->name);
 						foreach ($users as $user){
 							 $content .= "\"{$user->getId()}\",\"{$user->getEmail()}\",\"{$info->password}\",\"{$user->getStoreId()}\"\n";
 						}
@@ -171,12 +180,13 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
 		} else {
 			try {
 				foreach ($ptIds as $ptId) {
-					$info = $this->_getInfodatapool($ptId);
-					$this->_generateDatapool($info);
+					$datapool= Mage::getModel('perftestmanager/perftestmanager')->getInstance('users');
+					$info = $datapool->_getInfodatapool($ptId);
+					$datapool->_generateDatapool($info);
 				}
 				Mage::getSingleton('adminhtml/session')->addSuccess(
 				Mage::helper('perftestmanager')->__(
-				'Total of %d record(s) were generated.',$info->usernumber
+				'Total of %d record(s) were generated.',$info->qty
 			)
 			);
 			} catch (Exception $e) {
@@ -189,134 +199,20 @@ class DnsToolsIt_PerfTestManager_Adminhtml_DatapoolController extends Mage_Admin
 	public  function  statsviewAction()
 	{
 		$id = $this->getRequest()->getParam('id');  
-		$infodp = $this->_getInfoDatapool($id);
-		$users = $this->_getUsersbyPtName($infodp->name);
-		$stats = $this->_getUsersStat($users);
+		$datapool= Mage::getModel('perftestmanager/perftestmanager')->getInstance('users');
+		$infodp = $datapool->_getInfoDatapool($id);
+		$users = $datapool->_getPtElements($infodp->name);
+		$stats = $datapool->_getStat($users);
 		$this->loadLayout();
-		$block=$this->getLayout()->createBlock("perftestmanager/viewstats")->setTemplate("perftestmanager/stats.phtml");		$block->setData('stats',$stats);
+		$block=$this->getLayout()->createBlock("perftestmanager/viewstats")->setTemplate("perftestmanager/stats.phtml");
+		$block->setData('stats',$stats);
 		$block->setData('infodp',$infodp);
 		$this->getLayout()->getBlock('content')->append($block);
         $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
         $this->renderLayout();
 	}
 
-	private function _getInfoDatapool($id){
-		$model =  Mage::getModel('perftestmanager/perftestmanager');
-		$info = $model->load($id);
-		return $info;
-	}
 	
-	private function _getUsersStat($users){
-		$stats=array();	
-		
-		$stats['hasloggedandAction']=0;
-		$stats['haslogged']=array();
-		$stats['avgspeedlogin']=0;
-		$stats['hasloggedcount']=0;
-		
-		foreach ($users as $user){
-			
-			$created=new DateTime($user->created_at);
-			$updated=new DateTime($user->updated_at);
-			//check login and action
-			if ($updated!=$created){
-				$stats['hasloggedandAction']+=1;
-			}
-			
-			//check firstlogin   
-			//Mage::getModel('log/customer')
-			$logtime =  Mage::getModel('log/customer')->loadByCustomer($user->entity_id);
-		
-			//Zend_Debug::dump($logtime->getData());
-			if (array_key_exists('login_at',$logtime->getData()))
-			{
-				$stats['haslogged'][$user->entity_id]=1;
-				
-			}
-
-			
-			
-		}
-	
-		if (count($users)>0){
-			foreach ($stats['haslogged'] as $userid=>$value)
-				{
-					$stats['hasloggedcount']+=$value;
-				}
-			//check media velocita di login (observer + tabella dedicata)
-			$avgspeed = Mage::getModel('statsinfo/statsinfo')->getCollection()
-																 ->addFieldToSelect('*')
-																 ->load();
-		
-			foreach ($avgspeed->getData() as $speedlogin){
-					$stats['avgspeedlogin'] = $speedlogin['login_time'] /count ($avgspeed->getData());
-				}
-		}
-		return $stats;
-	}
-	
-	private function _getUsersbyPtName($name){
-		
-		$users =  Mage::getModel('customer/customer')->getCollection()
-													 ->addAttributeToFilter('email',array('like'=>$name.'%'))
-													 ->load();
-												 
-		return $users;
-	}
-	
-	private function _generateDatapool($info){
-		
-		 $testname=$info->name;
-		 $limituser=$info->usernumber;
-		 //dynamic
-		 $firstname=$info->name."-";
-		 //dynamic
-		 $lastname=$info->name."-";
-		 //dynamic
-		 $email=$info->emaildomain;
-		 $password=$info->password;
-		 $websiteid=$info->website_id;
-		 $storeid=$info->store_id;
-		 $groupid=$info->group_id;
-		 
-		 for($i=0;$i<$limituser;$i++){
-		 
-			 try{	
-	                        //customer Model
-	                        $newCustomer = Mage::getModel('customer/customer');
-	                        //creazione utente
-	                        $newCustomer->setFirstname($firstname.$i)
-	                                    ->setLastname($lastname.$i)
-	                                    ->setEmail($testname."-".$i."@".$email)
-	                                    ->setPassword($password)
-	                                    ->setWebsiteId($websiteid)
-	                                    ->setStoreId($storeid)
-	                                    ->setGroupId($groupid)
-	                                    ->save();
-	                        //Conferma automatica utente
-	                        $newCustomer->setConfirmation(null)
-	                                                ->save();
-	
-	        }catch(Exception $e){
-	                echo $e->getMessage()."\n";
-	        }
-		}
-		
-		
-	}
-
-	private function _deletePtUsers($users){
-		
-		$model = Mage::getModel('customer/customer');
-		foreach ($users as $user){
-			$model->setId($user->entity_id)->delete();
-		}
-		
-	}
-	
-	private function _exportPtUsers($users){
-		
-	}
 	
 								 	
 }
